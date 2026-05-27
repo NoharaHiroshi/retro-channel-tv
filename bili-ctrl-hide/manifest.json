@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Bilibili 控制栏自动隐藏",
+  "version": "1.0",
+  "description": "在嵌入式播放器中自动隐藏 B 站控制栏，鼠标移入后恢复正常交互。",
+  "content_scripts": [
+    {
+      "matches": ["https://player.bilibili.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ]
+}

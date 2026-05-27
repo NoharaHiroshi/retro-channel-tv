@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>复古频道电视</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell" id="appShell" aria-label="复古频道电视">
+      <section class="tv-zone">
+        <div class="set-top">
+          <div class="brand">雪花频道电视 1986</div>
+          <div class="status-lights" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <div class="television" id="television">
+          <div class="screen-wrap filter-crt" id="screenWrap">
+            <div class="glass">
+              <div class="player" id="player"></div>
+              <div class="static-field" id="staticField"></div>
+              <div class="scanlines" aria-hidden="true"></div>
+              <div class="vignette" aria-hidden="true"></div>
+              <div class="osd" id="osd">
+                <div class="osd-channel" id="osdChannel">第 01 频道</div>
+                <div>
+                  <div class="osd-title" id="osdTitle">正在校准信号</div>
+                  <div class="osd-meta" id="osdMeta">节目时间轴</div>
+                </div>
+              </div>
+              <button class="power-card" id="startButton" type="button">
+                <span>按回车</span>
+                <strong>打开电视</strong>
+              </button>
+            </div>
+          </div>
+
+          <div class="speaker-grill" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="transport">
+          <button class="dial main-dial" id="channelDown" type="button" title="上一频道">频道 -</button>
+          <button class="dial main-dial" id="channelUp" type="button" title="下一频道">频道 +</button>
+          <button class="dial" id="sideToggle" type="button" title="隐藏或显示管理侧栏">隐藏后台</button>
+        </div>
+      </section>
+
+      <aside class="control-deck" id="controlDeck" aria-label="频道与管理后台">
+        <div class="now-panel">
+          <div class="tiny-label">当前频道</div>
+          <h1 id="channelName">深夜街机台</h1>
+          <p id="channelDescription">街机长玩、合成器、霓虹城市与夜间信号。</p>
+          <div class="meter-row">
+            <span id="clock">00:00</span>
+            <div class="progress"><span id="progressBar"></span></div>
+            <span id="remaining">00:00</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>频道</h2>
+            <span class="hint">↑ / ↓</span>
+          </div>
+          <div class="channel-list" id="channelList"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>画面滤镜</h2>
+            <span class="hint">F</span>
+          </div>
+          <div class="filter-grid" id="filterGrid"></div>
+        </div>
+
+        <div class="panel scout-panel">
+          <div class="panel-head">
+            <h2>搜源</h2>
+            <span class="hint">YouTube / B站 / 链接</span>
+          </div>
+          <div class="scout-form">
+            <input id="sourceInput" type="text" spellcheck="false" autocomplete="off" placeholder="输入关键词，或粘贴 YouTube / B站 / mp4 链接" />
+            <button id="scoutButton" type="button">扫描</button>
+          </div>
+          <div class="scout-actions">
+            <button id="autoScoutButton" type="button">按频道风格搜源</button>
+            <button id="appendSourceButton" type="button">加入节目表</button>
+            <button id="importBilibiliButton" type="button">导入B站剧集</button>
+          </div>
+          <p class="source-note" id="sourceStatus">
+            可粘贴 B站番剧、合集、多 P 视频链接，导入后按集数加入当前频道节目表。
+          </p>
+        </div>
+
+        <div class="panel schedule-panel">
+          <div class="panel-head">
+            <h2>节目表</h2>
+            <span class="hint">只读时间轴</span>
+          </div>
+          <div class="schedule" id="schedule"></div>
+        </div>
+
+        <div class="panel admin-panel">
+          <div class="panel-head">
+            <h2>管理后台</h2>
+            <span class="hint">本机保存</span>
+          </div>
+
+          <label class="field">
+            <span>编辑频道</span>
+            <select id="adminChannelSelect"></select>
+          </label>
+
+          <div class="admin-grid">
+            <label class="field">
+              <span>频道名</span>
+              <input id="adminChannelName" type="text" />
+            </label>
+            <label class="field">
+              <span>排序</span>
+              <input id="adminChannelOrder" type="number" min="1" step="1" />
+            </label>
+          </div>
+
+          <label class="field">
+            <span>频道说明</span>
+            <input id="adminChannelDescription" type="text" />
+          </label>
+
+          <label class="field">
+            <span>频道标签</span>
+            <input id="adminChannelTags" type="text" placeholder="街机, 音乐, 旅行" />
+          </label>
+
+          <label class="field">
+            <span>搜源关键词</span>
+            <input id="adminScoutTerms" type="text" placeholder="复古街机, 城市漫游" />
+          </label>
+
+          <label class="field">
+            <span>节目编排</span>
+            <textarea id="adminPrograms" rows="8" spellcheck="false" placeholder="节目名 | youtube/bilibili/direct/iframe | 视频ID或链接 | 原始秒数 | 标签1,标签2 | 跳过开头秒 | 跳过结尾秒"></textarea>
+          </label>
+
+          <div class="admin-actions">
+            <button id="saveAdminButton" type="button">保存编排</button>
+            <button id="addChannelButton" type="button">新增频道</button>
+            <button id="deleteChannelButton" type="button">删除频道</button>
+            <button id="resetConfigButton" type="button">恢复默认</button>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <script src="./app.js?v=20260512-bili-hover-exit"></script>
+  </body>
+</html>
